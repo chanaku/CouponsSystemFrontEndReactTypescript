@@ -32,19 +32,37 @@ function CouponsList(): JSX.Element {
         notify.error(err)
       }
       );
-        
   }, []);
     
   return (
     <div className="CouponsList">
 
       {coupons?.length > 0 && <h1>coupons</h1>}
-
-      
-
-      {coupons?.length > 0 &&
-
-        <Card {...coupons}>{coupons}</Card>
+      {/* {coupons?.length > 0 &&  */}
+           { coupons.map((coup:any) =>{
+              return[
+                <>  <div key={coup.id}>
+                        <div id="card">
+                        <img src="https://mumlatzim.me/wp-content/uploads/2019/11/printable-coupons-1_large.png" alt="coupon" />
+                          <div id="headline1">
+                              <h1>{coup.title}</h1> 
+                          </div>
+                          <hr/>
+                          <div id="headline1">
+                            <p>{coup.description}</p>
+                          </div>
+                          <hr/>
+                          <div id="price">
+                            <h3>Price: {coup.price}</h3>
+                            <button className="button-28">TAKE IT!</button>
+                          </div>
+                          
+                        </div>
+                        </div>
+                </>
+              ]
+            })
+       
         // <table className="mutable">
 
         //   <thead>

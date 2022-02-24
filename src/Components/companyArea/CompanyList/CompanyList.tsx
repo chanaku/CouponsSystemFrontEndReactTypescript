@@ -7,6 +7,7 @@ import notify, { SccMsg } from "../../services/Notification2";
 import EmptyView from "../../SharedArea/EmptyView/EmptyView";
 import "./CompanyList.css";
 import globals from '../../services/globals';
+import { List } from 'material-ui';
 
 
 function CompanyList(): JSX.Element {
@@ -33,37 +34,38 @@ function CompanyList(): JSX.Element {
     return (
         <div className="CompanyList">
             {companies?.length > 0 && <h1>companies</h1>}
-            {companies?.length > 0 &&
+            {companies?.length > 0 && 
+            
 
-                <table className="mytable">
+                 <table className="mytable">
 
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>name</th>
-                            <th>email</th>
+                     <thead>
+                         <tr>
+                             <th>Id</th>
+                             <th>name</th>
+                             <th>email</th>
                             <th>password</th>
-                            <th>Actions <Link to="/addCompany"><button>Add Company</button></Link></th>
-                        </tr>
-                    </thead>
+                             <th>Actions <Link to="/addCompany"><button className="button-26">Add Company</button></Link></th>
+                         </tr>
+                     </thead>
 
 
-                    <tbody>
+                     <tbody>
 
-                        {companies.map((coupon: CompanyModel) => {
+                         {companies.map((coupon: CompanyModel) => {
 
-                            return [
-                                <tr key={coupon.id}>
+                             return [
+                                 <tr key={coupon.id}>
                                     <td>{coupon.id}</td>
                                     <td>{coupon.name}</td>
-                                    <td>{coupon.email}</td>
-                                    <td>{coupon.password}</td>
-                                    <td><button>Delete Company</button>&nbsp;<button>Update Company</button> </td>
-                                </tr>
-                            ]
-                        })}
-                    </tbody>
-                </table >
+                                     <td>{coupon.email}</td>
+                                 <td>{coupon.password}</td>
+                                     <td><button className="button-26">Delete Company</button>&nbsp;<button className="button-26">Update Company</button> </td>
+                                 </tr>
+                             ]
+                         })}
+                     </tbody>
+                 </table >
 
             }
 

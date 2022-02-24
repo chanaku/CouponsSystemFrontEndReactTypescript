@@ -1,3 +1,38 @@
-.CompanyList {
-	
+.CompanyList  {
+
+        height: 100%;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content:flex-start;
+        align-items:center;
+        /* overflow: auto; */
+        flex-direction: column;
+        background-color:#f1e8e1;
+        color: black;
+    }
+    
+    .CouponsList tr:ntn-child(even){
+        background-color:lightblue;
+    
+    }
+    .CouponsList tr:ntn-child(odd){
+        background-color:lightcoral;
+        
+    }
+    .CouponsList tr:nth-child(even){background-color: #f2f2f2;}
+    
+    .CouponsList tr:hover {background-color: #ddd;}
+    
+    .CompanyList .mytable{
+        height: 80%;
+        width: 100%;
+        overflow: auto;
+        }
+.CouponsList .mytable .h1{
+    background-color: #f1e8;
+    display: flex;
+        justify-content:flex-start;
+        align-items:left;
+        color: red;
 }

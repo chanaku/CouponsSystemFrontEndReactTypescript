@@ -7,11 +7,20 @@
     align-items:center;
     /* overflow: auto; */
     flex-direction: column;
-    background-color: lightblue;
+    background-color: rgb(255, 249, 242);
+    
+}
+.CouponsList >h1{
+    height: 80px;
+    display: flex;
+    justify-content:flex-start;
+    align-items:center;
+    background-color:#ddd;
+    overflow: auto;
 }
 
 .CouponsList tr:ntn-child(even){
-    background-color:lightblue;
+    background-color:rgb(26, 82, 100);
 
 }
 .CouponsList tr:ntn-child(odd){
@@ -23,6 +32,7 @@
 .CouponsList tr:hover {background-color: #ddd;}
 
 .mytable{
-    height: 80%;
+    height: 120%;
     overflow: auto;
     }
+    

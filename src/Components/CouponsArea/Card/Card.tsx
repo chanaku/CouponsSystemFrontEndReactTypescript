@@ -11,12 +11,12 @@ function Card(props: CouponCardProps): JSX.Element {
     return (
         <div className="Card Box2">
 			<div>
-               title: {props.coupon.title} <br/>
-                company: {props.coupon.company} <br/>
-                {props.coupon.description} <br/>
+                {props.coupon?.title} <br/>
+                company: {props.coupon?.company} <br/>
+                {props.coupon?.description} <br/>
             </div>
         <div>
-                    <img src={props.coupon.image} alt={props.coupon.title} />
+                    <img src={props.coupon?.image} alt={props.coupon?.title} />
               </div>
            </div>
     );

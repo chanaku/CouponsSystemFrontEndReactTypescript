@@ -10,6 +10,7 @@ import Page404 from "../../SharedArea/Page404/Page404";
 import "./Routing.css";
 import CompanyList from '../../companyArea/CompanyList/CompanyList';
 import AddCompany from '../../companyArea/AddCompany/AddCompany';
+import Logout from '../../LoginArea/Logout/Logout';
 
 function Routing(): JSX.Element {
     return (
@@ -23,6 +24,7 @@ function Routing(): JSX.Element {
                 <Route path="companies/add" element={<AddCompany/>}/>
                 <Route path="about" element={<About/>}/>
                 <Route path="login" element={<Login/>}/>
+                <Route path="logout" element={<Logout/>}/>
                 <Route path="coupons/add" element={<AddCoupon/>}/>
                 <Route path="*" element={<Page404/>}/>
             </Routes>

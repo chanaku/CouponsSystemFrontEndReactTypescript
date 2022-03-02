@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthMenu from '../../AuthMenu/AuthMenu';
+import AuthMenu from '../../LoginArea/AuthMenu/AuthMenu';
 import Nav from '../../RoutingArea/Nav/Nav';
 import "./Header.css";
 

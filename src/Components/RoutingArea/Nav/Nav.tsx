@@ -13,7 +13,8 @@ function Nav(): JSX.Element {
                     <div className='inner'><button className="button-28"><CustomLink to="/companies">Companies</CustomLink></button></div>
                     <div className='inner'><button className="button-28"><CustomLink to="/companies/add">Add Company</CustomLink></button></div>
                     <div className='inner'><button className="button-28"><CustomLink to="/coupons/add">Add Coupon</CustomLink></button></div>
-                    <div className='inner'><button className="button-28"><CustomLink to="/login">Login</CustomLink></button></div>
+                    {/* <div className='inner'><button className="button-28"><CustomLink to="/login">Login</CustomLink></button></div>
+                    <div className='inner'><button className="button-28"><CustomLink to="/logout">Logout</CustomLink></button></div> */}
                 </div>
           </nav>
         </div>

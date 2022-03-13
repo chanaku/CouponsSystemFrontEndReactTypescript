@@ -11,6 +11,7 @@ import "./Routing.css";
 import CompanyList from '../../companyArea/CompanyList/CompanyList';
 import AddCompany from '../../companyArea/AddCompany/AddCompany';
 import Logout from '../../LoginArea/Logout/Logout';
+import UpdateCompany from '../../companyArea/UpdateCompany/UpdateCompany';
 
 function Routing(): JSX.Element {
     return (
@@ -26,6 +27,7 @@ function Routing(): JSX.Element {
                 <Route path="login" element={<Login/>}/>
                 <Route path="logout" element={<Logout/>}/>
                 <Route path="coupons/add" element={<AddCoupon/>}/>
+                <Route path="companies/update" element={<UpdateCompany/>}/>
                 <Route path="*" element={<Page404/>}/>
             </Routes>
         </div>

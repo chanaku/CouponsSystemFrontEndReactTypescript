@@ -1,45 +1,49 @@
-import "./AddCompany.css";
-import * as yup from "yup";
-import { CompanyModel } from "../../Models/CompanyModel";
+
 import { useForm } from "react-hook-form";
+import { CompanyModel } from "../../Models/CompanyModel";
+import "./UpdateCompany.css";
 import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import globals from "../../services/globals";
 import axios from "axios";
-import notify from "../../services/Notification2";
+import { CompanyService } from "../../services/CompanyService";
 
-
-function AddCompany(): JSX.Element {
-
+function UpdateCompany(): JSX.Element {
+ 
     const schema =yup.object().shape({
         name:
-            yup.string()
-                .required("company's name is required"),
+            yup.string(),
         email:
             yup.string()
-                .email()
-                .required("company's email is required"),
+                .email(),
         password:
             yup.string()
-                .required("please enter password")
                 .min(6, "password is too short")
     });
     const { register, handleSubmit, formState: { errors, isDirty, isValid } } =
     useForm<CompanyModel>({ mode: "all", resolver: yupResolver(schema) });
 
-const addCompany = async (company: CompanyModel) => {
-    const formData = new FormData();
-    formData.append("name", company.name as string);
-    formData.append("email", company.email as string);
-    formData.append("password", company.password as string);
-    console.log(FormData);
-
-    await axios.post<CompanyModel>(globals.urls.companies, company)
+const UpdateCompany = async (company: CompanyModel) => {
+    // const formData = new FormData();
+    // formData.append("id", CompanyService.getId() as unknown as string);
+    // formData.append("name", company.name as string);
+    // formData.append("email", company.email as string);
+    // formData.append("password", company.password as string);
+    // console.log(FormData);
+        console.log(company);
+        company.id = CompanyService.getId() || " " ;
+        
+        console.log(company);
+    await axios.put<CompanyModel>(globals.urls.companies, company)
         .then(res => { console.log(JSON.stringify(res.data)) })
         .catch(err => { console.log(err); });
 }
+console.log("Updating Company");
+    console.log(CompanyService.getId());
 return (
-    <div className="AddCompany">
-        <form onSubmit={handleSubmit(addCompany)}>
+    <div className="UpdateCompany">
+           
+        <form onSubmit={handleSubmit(UpdateCompany)}>
             {
                 errors.name?.message ?
                     <>
@@ -92,13 +96,11 @@ return (
             {
                 
 
-            <button disabled={!isValid}>ADD</button>
+            <button disabled={!isValid}>Update</button>
             }
         </form>
     </div>
 );
 }
 
-export default AddCompany;
-
-
+export default UpdateCompany;

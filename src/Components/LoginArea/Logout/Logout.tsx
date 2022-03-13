@@ -1,18 +1,31 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import  { useNavigate }   from "react-router-dom";
+import authService from "../../services/AuthService";
+import notify, { SccMsg } from "../../services/Notification2";
 import "./Logout.css";
 
 function Logout(): JSX.Element {
 
-    const logoutNow =()=>{
-        
-    }
+    const navigate = useNavigate();
 
+    useEffect(()=> //React Hook for running side effects inside a fc
+    { 
+        authService.setToken(" ");
+        authService.setIsLoggenedIn(false);
+        notify.success(SccMsg.LOGOUT_SUCCESS);
+        navigate("/home");
+        console.log(authService.getToken());
+        console.log(authService.getIsLoggenedIn());
+    });
+
+    
     return (
-        <div className="Logout">
-			<p>are you sure you want to log out?</p>
-            <button onClick={logoutNow}>yes</button><button><Link to="/">No</Link></button>
-        </div>
+        <></>
     );
 }
 
 export default Logout;
+
+function logoutAction(): any {
+    throw new Error("Function not implemented.");
+}

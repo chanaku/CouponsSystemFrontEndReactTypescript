@@ -5,6 +5,6 @@ export class CompanyModel{
         public name?: string,
         public password?: string,
     ){
-        
+     
     }
 }

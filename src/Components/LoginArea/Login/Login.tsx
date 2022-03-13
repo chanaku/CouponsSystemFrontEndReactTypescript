@@ -6,34 +6,48 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginModel } from '../../Models/LoginModel';
 import axios from 'axios';
 import globals from '../../services/globals';
+import AuthService from '../../services/AuthService';
+import authService from '../../services/AuthService';
+
 
 function Login(): JSX.Element {
+
     const schema = z.object({
-  
+
         email: z.string().email().nonempty("Email is required"),
         password: z.string().min(4).max(15).nonempty("Password is required"),
         clientType: z.string().nonempty("Client Type is required")
-        
+
     });
+
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting, isDirty, isValid },
-      } = useForm<LoginModel>({
+    } = useForm<LoginModel>({
         mode: "all",
         resolver: zodResolver(schema),
-      });
-      const loginToServer = async (login: LoginModel) => {
+    });
+    const loginToServer = async (login: LoginModel) => {
         const formData = new FormData();
         formData.append("name", login.email as string);
         formData.append("email", login.password as string);
         formData.append("password", login.clientType as string);
         console.log(FormData);
 
-      await axios.post<LoginModel>(globals.urls.login, login)
-      .then(res => console.log(res.data))
-      .catch(err => { console.log(err); });
-}
+
+        await axios.post<LoginModel>(globals.urls.login, login)
+            .then(res => (active(res.data as string)))
+            .catch((err: any) => { console.log(err); })
+    }
+    function active(data: string) {
+        authService.setToken(data);
+        authService.setIsLoggenedIn(true);
+        console.log(authService.getToken());
+        console.log(authService.getIsLoggenedIn());
+    }
+
+
     return (
 
         <div className="Login">
@@ -43,7 +57,7 @@ function Login(): JSX.Element {
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input {...register("email")} placeholder="Email Address" type="text" className="form-control" aria-describedby="emailHelpBlock" required />
-                   
+
                 </div>
                 <span className="bad">{errors.email?.message}</span>
                 <div className="form-group">
@@ -62,7 +76,7 @@ function Login(): JSX.Element {
                             <option value="CUSTOMER">Customer</option>
 
                         </select>
-                        
+
                     </div>
                     <span className="bad">{errors.clientType?.message}</span>
                 </div>
@@ -75,3 +89,4 @@ function Login(): JSX.Element {
 }
 
 export default Login;
+

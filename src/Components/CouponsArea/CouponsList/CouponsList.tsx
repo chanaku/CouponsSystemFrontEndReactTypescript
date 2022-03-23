@@ -8,16 +8,34 @@ import notify, { SccMsg } from "../../services/Notification2";
 import EmptyView from "../../SharedArea/EmptyView/EmptyView";
 import "./CouponsList.css";
 import Card from '../Card/Card';
+import globals from '../../services/globals';
 
 function CouponsList(): JSX.Element {
     const init: CouponModel[] = [];
     const[coupons, setCoupons] =useState<any>(init);
 
-
     const  getCoupons = async()=>{
-        return await axios.get<any>('http://localhost:8080/admin/coupons');
+        return await axios.get<any>(globals.urls.coupons);
         }
+//         const purchase = async(coupon: CouponModel)=>{
+//           console.log(coupon);
+//           await axios.put<CouponModel>(globals.urls.customerPurchase, coupon)
+//         .then(res => { console.log(JSON.stringify(res.data)) })
+//         .catch(err => { console.log(err); });
+// }
+        
 
+
+      //   const deleteCoupon = async (id: any, e: any) => {
+      //     await axios.delete(`http://localhost:8080/admin/coupon/${id}`)
+      //         .then(res => {
+      //             getCoupons();
+      //             console.log(res.data);
+      //         })
+      //         .catch((err) => {
+      //             notify.error(err)
+      //         });
+      // };
      
         useEffect(() => {
 
@@ -54,7 +72,9 @@ function CouponsList(): JSX.Element {
                           <hr/>
                           <div id="price">
                             <h3>Price: {coup.price}</h3>
-                            <button className="button-28">TAKE IT!</button>
+                            <button className="button-28"
+                            //  onClick={(e) => purchase(coup)}
+                             >TAKE IT!</button>
                           </div>
                           
                         </div>

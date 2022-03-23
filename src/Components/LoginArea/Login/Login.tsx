@@ -30,16 +30,18 @@ function Login(): JSX.Element {
     });
     const loginToServer = async (login: LoginModel) => {
         const formData = new FormData();
-        formData.append("name", login.email as string);
-        formData.append("email", login.password as string);
-        formData.append("password", login.clientType as string);
+        formData.append("email", login.email as string);
+        formData.append("password", login.password as string);
+        formData.append("clientType", login.clientType as string);
         console.log(FormData);
+        console.log(login.clientType);
 
 
-        await axios.post<LoginModel>(globals.urls.login, login)
+        await axios.post<LoginModel>(globals.urls.login , login)
             .then(res => (active(res.data as string)))
-            .catch((err: any) => { console.log(err); })
+            .catch((err: any) => { console.log(err + " "+ login); })
     }
+   
     function active(data: string) {
         authService.setToken(data);
         authService.setIsLoggenedIn(true);

@@ -3,7 +3,7 @@ import "./CouponsCategory.css";
 import React from 'react';
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Avatar from "../../Avatar/Avatar";
 import { CouponModel } from "../../Models/CouponModel";
 import notify, { SccMsg } from "../../services/Notification2";
@@ -11,19 +11,31 @@ import EmptyView from "../../SharedArea/EmptyView/EmptyView";
 import Card from '../Card/Card';
 
 function CouponsCategory(): JSX.Element {
+  let {category} = useParams();
+  category = category?.toString().toUpperCase();
+  console.log(category);
     const init: CouponModel[] = [];
     const[coupons, setCoupons] =useState<any>(init);
-    const[category, setCategory] = useState();
+    const navigate = useNavigate();
+
+   
 
 
     
     const  getCoupons = async()=>{
-        return await axios.get<any>('http://localhost:8080/admin/coupons');
+      console.log(category);
+        return await axios.get<CouponModel>('http://localhost:8080/admin/coupons/'+category);
+        
         }
 
+        const body = document.body;
      
         useEffect(() => {
-
+            // switch (category) {
+            //   case "FOOD":
+            //     body.style.background= '#fff';
+            //     break;
+            // }
             const response = getCoupons();
             response
       .then((response) => {
@@ -35,10 +47,11 @@ function CouponsCategory(): JSX.Element {
         notify.error(err)
       }
       );
-  }, []);
+  }, [category]);
     
   return (
     <div className="CouponsList">
+      
 
       {coupons?.length > 0 && <h1>coupons</h1>}
       {/* {coupons?.length > 0 &&  */}
@@ -46,6 +59,7 @@ function CouponsCategory(): JSX.Element {
               return[
                 <>  <div key={coup.id}>
                         <div id="card">
+
                         <img src="https://mumlatzim.me/wp-content/uploads/2019/11/printable-coupons-1_large.png" alt="coupon" />
                           <div id="headline1">
                               <h1>{coup.title}</h1> 
@@ -66,46 +80,6 @@ function CouponsCategory(): JSX.Element {
               ]
             })
        
-        // <table className="mutable">
-
-        //   <thead>
-        //     <tr>
-        //       <th>Id</th>
-        //       <th>Company</th>
-        //       <th>Title</th>
-        //       <th>Description</th>
-        //       <th>StartDate</th>
-        //       <th>EndDate</th>
-        //       <th>Amount</th>
-        //       <th>Price</th>
-        //       <th>Image</th>
-        //       <th>Actions <Link to="/addCoupon"><button>Add Coupon</button></Link></th>
-        //     </tr>
-        //   </thead>
-
-
-        //   <tbody>
-
-        //     {coupons.map((coupon: CouponModel) => {
-              
-        //       return [
-        //         <tr key={coupon.id}>
-        //           <td>{coupon.id}</td>
-        //           <td>{coupon.company}</td>
-        //           <td>{coupon.title}</td>
-        //           <td>{coupon.description}</td>
-        //           <td>{coupon.startDate}</td>
-        //           <td>{coupon.endDate}</td>
-        //           <td>{coupon.amount}</td>
-        //           <td>{coupon.price}</td>
-        //           <td><Avatar uuid={coupon.image} /></td>
-        //           <td><button>Delete Coupon</button>&nbsp;<button>Update Coupon</button> </td>
-        //         </tr>
-                
-        //       ]
-        //     })}
-        //   </tbody>
-        // </table >
         
       }
 

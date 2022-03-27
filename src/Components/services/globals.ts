@@ -3,7 +3,7 @@ class Globals{
 
 class DevelopmentGlobals extends Globals{
     public urls = {
-        coupons: "http://localhost:8080/guest/coupons/",
+        coupons: "http://localhost:8080/admin/coupons/",
         images: "http://localhost:8080/api/cats/images/",
         companies:"http://localhost:8080/guest/company/",
         login:"http://localhost:8080/company/login",
@@ -14,9 +14,9 @@ class DevelopmentGlobals extends Globals{
 
 class ProductionGlobals extends Globals{
     public urls = {
-        coupons: "http://localhost:8080/guest/coupons/",
+        coupons: "http://localhost:8080/admin/coupons/",
         images: "http://localhost:8080/api/cats/images/",
-        companies:"http://localhost:8080/guest/company",
+        companies:"http://localhost:8080/admin/company",
         login:"http://localhost:8080/company/login",
         customerPurchase:"http://localhost:8080/customer/"
     }

@@ -12,6 +12,7 @@ import CompanyList from '../../companyArea/CompanyList/CompanyList';
 import AddCompany from '../../companyArea/AddCompany/AddCompany';
 import Logout from '../../LoginArea/Logout/Logout';
 import UpdateCompany from '../../companyArea/UpdateCompany/UpdateCompany';
+import CouponsCategory from '../../CouponsArea/CouponsCategory/CouponsCategory';
 
 function Routing(): JSX.Element {
     return (
@@ -21,6 +22,10 @@ function Routing(): JSX.Element {
                 <Route path="/home" element={<Home/>}/>
                 <Route index element={<Home/>}/>
                 <Route path="coupons" element={<CouponsList/>}/>
+                <Route path="coupons/FOOD" element={<CouponsCategory/>}/>
+                <Route path="coupons/ELECTRICITY" element={<CouponsCategory/>}/>
+                <Route path="coupons/RESTAURANT" element={<CouponsCategory/>}/>
+                <Route path="coupons/VACATION" element={<CouponsCategory/>}
                 <Route path="companies" element={<CompanyList/>}/>
                 <Route path="companies/add" element={<AddCompany/>}/>
                 <Route path="about" element={<About/>}/>

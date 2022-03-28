@@ -15,7 +15,7 @@ function CouponsCategory(): JSX.Element {
   category = category?.toString().toUpperCase();
   console.log(category);
     const init: CouponModel[] = [];
-    const[coupons, setCoupons] =useState<any>(init);
+    const[coupons, setCoupons] =useState<CouponModel[]>(init);
     const navigate = useNavigate();
 
    
@@ -24,7 +24,7 @@ function CouponsCategory(): JSX.Element {
     
     const  getCoupons = async()=>{
       console.log(category);
-        return await axios.get<CouponModel>('http://localhost:8080/admin/coupons/'+category);
+        return await axios.get<CouponModel[]>('http://localhost:8080/admin/coupons/'+category);
         
         }
 

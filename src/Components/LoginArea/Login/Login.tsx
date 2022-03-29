@@ -41,13 +41,14 @@ function Login(): JSX.Element {
         type=type?.toString().toLowerCase();
 
         await axios.post<LoginModel>("http://localhost:8080/guest/login" , login)
-            .then(res => (active(res.data as string)))
+            .then(res => (active(res.data as string, login.clientType as string)))
             .catch((err: any) => { console.log(err + " "+ login); })
     }
    
-    function active(data: string): void {
+    function active(data: string, clientType: string): void {
         authService.setToken(data);
         authService.setIsLoggenedIn(true);
+        authService.setType(clientType);
         console.log(authService.getToken());
         console.log(authService.getIsLoggenedIn());
     }

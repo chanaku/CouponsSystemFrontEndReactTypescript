@@ -8,7 +8,7 @@ function Header(): JSX.Element {
         <div className="Header">
 			<h1>Coupon System</h1>
             <h6>by Chana Kurtz</h6>
-            <AuthMenu />
+            {/* <AuthMenu /> */}
            <Nav/>
         </div>
     );

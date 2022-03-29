@@ -23,7 +23,7 @@ function CompanyList(): JSX.Element {
     }
 
     const getCompanies = async () => {
-        return await axios.get<CompanyModel[]>(globals.urls.companies)
+        return await axios.get<CompanyModel[]>(globals.urlsMain.companies)
     }
     const deleteCompany = async (id: any, e: any) => {
         await axios.delete(`http://localhost:8080/admin/company/${id}`)

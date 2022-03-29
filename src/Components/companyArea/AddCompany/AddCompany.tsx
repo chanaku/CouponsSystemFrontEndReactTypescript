@@ -33,7 +33,7 @@ const addCompany = async (company: CompanyModel) => {
     formData.append("password", company.password as string);
     console.log(FormData);
 
-    await axios.post<CompanyModel>(globals.urls.companies, company)
+    await axios.post<CompanyModel>(globals.urlsAdmin.companies, company)
         .then(res => { console.log(JSON.stringify(res.data)) })
         .catch(err => { console.log(err); });
 }

@@ -83,7 +83,7 @@ function AddCoupon(): JSX.Element {
     
     //sending post request to spring boot
     console.log(FormData);
-    await axios.post<CouponModel>(globals.urls.coupons, FormData)
+    await axios.post<CouponModel>(globals.urlsMain.coupons, FormData)
         .then(res => { alert(JSON.stringify(res.data)) })
         .catch(err => { console.log(err); });
 }

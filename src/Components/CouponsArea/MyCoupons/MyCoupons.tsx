@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CouponModel } from "../../Models/CouponModel";
+import globals from "../../services/globals";
 import notify, { SccMsg } from "../../services/Notification2";
 import EmptyView from "../../SharedArea/EmptyView/EmptyView";
 import "./MyCoupons.css";
@@ -18,7 +19,7 @@ function MyCoupons(): JSX.Element {
       
       const  getCoupons = async()=>{
        
-          return await axios.get<CouponModel[]>('http://localhost:8080/customer/coupons/');
+          return await axios.get<CouponModel[]>(globals.urlsCustomer.coupons);
           
           }
   

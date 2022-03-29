@@ -24,7 +24,7 @@ function CouponsCategory(): JSX.Element {
     
     const  getCoupons = async()=>{
       console.log(category);
-        return await axios.get<CouponModel[]>('http://localhost:8080/admin/coupons/'+category);
+        return await axios.get<CouponModel[]>('http://localhost:8080/administrator/coupons/'+category);
         
         }
 

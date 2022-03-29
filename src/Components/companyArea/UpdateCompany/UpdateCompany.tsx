@@ -34,7 +34,7 @@ const UpdateCompany = async (company: CompanyModel) => {
         company.id = CompanyService.getId() || " " ;
         
         console.log(company);
-    await axios.put<CompanyModel>(globals.urls.companies, company)
+    await axios.put<CompanyModel>(globals.urlsAdmin.companies, company)
         .then(res => { console.log(JSON.stringify(res.data)) })
         .catch(err => { console.log(err); });
 }

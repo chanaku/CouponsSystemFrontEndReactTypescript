@@ -15,7 +15,7 @@ function CouponsList(): JSX.Element {
     const[coupons, setCoupons] =useState<any>(init);
 
     const  getCoupons = async()=>{
-        return await axios.get<any>(globals.urls.coupons);
+        return await axios.get<any>(globals.urlsAdmin.coupons);
         }
 //         const purchase = async(coupon: CouponModel)=>{
 //           console.log(coupon);

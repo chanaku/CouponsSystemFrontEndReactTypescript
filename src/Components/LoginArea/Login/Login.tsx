@@ -8,6 +8,7 @@ import axios from 'axios';
 import globals from '../../services/globals';
 import AuthService from '../../services/AuthService';
 import authService from '../../services/AuthService';
+import { string } from 'yup';
 
 
 function Login(): JSX.Element {
@@ -36,13 +37,15 @@ function Login(): JSX.Element {
         console.log(FormData);
         console.log(login.clientType);
 
+        let type = login.clientType;
+        type=type?.toString().toLowerCase();
 
-        await axios.post<LoginModel>(globals.urls.login , login)
+        await axios.post<LoginModel>("http://localhost:8080/guest/login" , login)
             .then(res => (active(res.data as string)))
             .catch((err: any) => { console.log(err + " "+ login); })
     }
    
-    function active(data: string) {
+    function active(data: string): void {
         authService.setToken(data);
         authService.setIsLoggenedIn(true);
         console.log(authService.getToken());

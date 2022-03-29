@@ -7,7 +7,7 @@ interface AvatarProps{
 }
 function Avatar(props: AvatarProps): JSX.Element {
 
-    const url = globals.urls.images +props.uuid;
+    const url = globals.urlsAdmin.images +props.uuid;
     console.log(url);
     return (
         <div className="Avatar">

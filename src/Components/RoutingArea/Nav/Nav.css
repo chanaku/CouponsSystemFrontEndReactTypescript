@@ -2,3 +2,27 @@
 	color: white
 }
 
+.hide {
+	display: none;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+    padding: 0;
+}
+
+.menu-button {
+	background: black;
+}
+
+.sub-menus {
+	display: none;
+	position: absolute;
+	z-index: 1;
+}
+
+.menus > .menu-items:hover .sub-menus {
+	display: block;
+	color: white;
+}

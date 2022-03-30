@@ -12,6 +12,7 @@ function Logout(): JSX.Element {
     { 
         authService.setToken(" ");
         authService.setIsLoggenedIn(false);
+        authService.setType("");
         notify.success(SccMsg.LOGOUT_SUCCESS);
         navigate("/home");
         console.log(authService.getToken());

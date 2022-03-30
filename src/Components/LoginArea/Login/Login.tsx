@@ -63,31 +63,35 @@ function Login(): JSX.Element {
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input {...register("email")} placeholder="Email Address" type="text" className="form-control" aria-describedby="emailHelpBlock" required />
-
+                    <br />
+                    <span className="bad">{errors.email?.message ? 'Error' : ''}</span>
+                    <span className="bad">{errors.email?.message}</span>
                 </div>
-                <span className="bad">{errors.email?.message}</span>
+                
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
-                    <input {...register("password")} placeholder="don't show your password with others" type="text" className="form-control" aria-describedby="passwordHelpBlock" required />
+                    <input {...register("password")} placeholder="Password" type="text" className="form-control" aria-describedby="passwordHelpBlock" required />
+                    <br />
+                    <span id="passwordHelpBlock" className="bad">{errors.password?.message ? 'Error' : ''}</span>
+                    <span id="passwordHelpBlock" className="bad">{errors.password?.message}</span>
                 </div>
-                <span id="passwordHelpBlock" className="bad">{errors.password?.message}</span>
-
+                
                 <div className="form-group">
                     <label htmlFor="select">Select</label>
-                    <div>
-                        <select {...register("clientType")} className="custom-select" required>
-                            <option></option>
-                            <option value="ADMINISTRATOR">Admin</option>
-                            <option value="COMPANY">Company</option>
-                            <option value="CUSTOMER">Customer</option>
+                    <select {...register("clientType")} className="custom-select" required>
+                        <option></option>
+                        <option value="ADMINISTRATOR">Admin</option>
+                        <option value="COMPANY">Company</option>
+                        <option value="CUSTOMER">Customer</option>
 
-                        </select>
-
-                    </div>
+                    </select>
+                    <br />
+                    <span className="bad">{errors.clientType?.message ? 'Error' : ''}</span>
                     <span className="bad">{errors.clientType?.message}</span>
                 </div>
-                <div className="form-group">
-                    <button disabled={!isDirty || !isValid} name="submit" type="submit" className="btn btn-primary">Login</button>
+                
+                <div className="form-group" style={{textAlign: 'center'}}>
+                    <button disabled={!isDirty || !isValid} name="submit" type="submit" className="btn-primary">Login</button>
                 </div>
             </form>
         </div>

@@ -16,17 +16,12 @@
 
 }
 
-.Login button{
-    
-    margin: 10px 0;
-    width: 100%;
-
-
+.Login > form {
+    text-align: left;
+    display: flex;
+    align-items: center;
 }
 
-
-
-.Login > form{
-    text-align: left;
-    align-items: flex-start;
+.form-group {
+    width: 45%;
 }

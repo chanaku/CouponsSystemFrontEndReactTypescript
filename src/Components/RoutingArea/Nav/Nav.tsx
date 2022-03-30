@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import authService from '../../services/AuthService';
 import CustomLink from "../CustomeLinks/CustomLink";
 import "./Nav.css";
 
 function Nav(): JSX.Element {
-    const isLoggedIn = authService.getIsLoggenedIn();
-    const clientType = authService.getType();
+    const [loggedIn, setLoggedIn] = useState(authService.getIsLoggenedIn());
+    const [clientType, setClientType] = useState(authService.getType());
+
+    useEffect(() => {
+        setInterval(() => {
+            setLoggedIn(authService.getIsLoggenedIn());
+            setClientType(authService.getType());
+        }, 1000)
+    }, []);
 
     const isVisible = (feature: string = '') => {
         switch (clientType) {
@@ -90,12 +97,12 @@ function Nav(): JSX.Element {
                             <CustomLink to="/coupons/add">Add Coupon</CustomLink>
                         </button>
                     </div>
-                    <div className={`inner ${isLoggedIn ? 'hide' : ''}`}>
+                    <div className={`inner ${loggedIn ? 'hide' : ''}`}>
                         <button className="button-28">
                             <CustomLink to="/login">Login</CustomLink>
                         </button>
                     </div>
-                    <div className={`inner ${!isLoggedIn ? 'hide' : ''}`}>
+                    <div className={`inner ${!loggedIn ? 'hide' : ''}`}>
                         <button className="button-28">
                             <CustomLink to="/logout">Logout</CustomLink>
                         </button>

@@ -112,6 +112,10 @@
   will-change: transform;
 }
 
+.button-28 a {
+  color: #fff;
+}
+
 .button-28:disabled {
   pointer-events: none;
 }
@@ -127,7 +131,7 @@
   box-shadow: none;
   transform: translateY(0);
 }
-  .button-28 :focus, :hover, :visited, :link, :active {
+  .button-28 :focus, .button-28:hover, .button-28:visited, .button-28:link, .button-28:active {
     text-decoration: none;
     color: #fff;
 }
@@ -204,7 +208,7 @@ margin-left: auto;
   box-shadow: none;
   transform: translateY(0);
 }
-  .button-26 :focus, :hover, :visited, :link, :active {
+  .button-26:focus, .button-26:hover, .button-26:visited, .button-26:link, .button-26:active {
     text-decoration: none;
     color: #fff;
 }

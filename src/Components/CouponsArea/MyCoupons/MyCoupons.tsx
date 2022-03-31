@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CouponModel } from "../../Models/CouponModel";
+import authService from "../../services/AuthService";
 import globals from "../../services/globals";
 import notify, { SccMsg } from "../../services/Notification2";
 import EmptyView from "../../SharedArea/EmptyView/EmptyView";
@@ -13,13 +14,19 @@ function MyCoupons(): JSX.Element {
       const[coupons, setCoupons] =useState<CouponModel[]>(init);
       const navigate = useNavigate();
   
-     
+      let clientType : any= authService.getType();
+      let urlmap = new Map<string, string>();
+      urlmap.set('ADMINISTRATOR', globals.urlsAdmin.coupons)
+      urlmap.set('COMPANY', globals.urlsCompany.coupons)
+      urlmap.set('CUSTOMER', globals.urlsCustomer.coupons)
+      // urlmap.set('null' , globals.urlsMain.coupons)
+      const headers: any = { authorization :  authService.getToken() };
   
   
       
       const  getCoupons = async()=>{
        
-          return await axios.get<CouponModel[]>(globals.urlsCustomer.coupons);
+          return await axios.get<CouponModel[]>('http://localhost:8080/'+(clientType).toLowerCase()+'/mycoupons' ,{headers});
           
           }
   
@@ -66,7 +73,7 @@ function MyCoupons(): JSX.Element {
                             <hr/>
                             <div id="price">
                               <h3>Price: {coup.price}</h3>
-                              <button className="button-28">TAKE IT!</button>
+                              
                             </div>
                             
                           </div>

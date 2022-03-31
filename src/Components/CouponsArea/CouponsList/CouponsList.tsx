@@ -9,20 +9,38 @@ import EmptyView from "../../SharedArea/EmptyView/EmptyView";
 import "./CouponsList.css";
 import Card from '../Card/Card';
 import globals from '../../services/globals';
+import authService from '../../services/AuthService';
 
 function CouponsList(): JSX.Element {
     const init: CouponModel[] = [];
     const[coupons, setCoupons] =useState<any>(init);
-
+    
+    let clientType : any= authService.getType();
+    let urlmap = new Map<string, string>();
+    urlmap.set('ADMINISTRATOR', globals.urlsAdmin.coupons)
+    urlmap.set('COMPANY', globals.urlsCompany.coupons)
+    urlmap.set('CUSTOMER', globals.urlsCustomer.coupons)
+    // urlmap.set('null' , globals.urlsMain.coupons)
+    
+    const headers: any = { authorization :  authService.getToken() };
+    console.log("this is url: "+('http://localhost:8080/'+(clientType).toLowerCase()+'/coupons'|| " "));
     const  getCoupons = async()=>{
-        return await axios.get<any>(globals.urlsAdmin.coupons);
+      if(clientType ===undefined){
+        clientType="guest";
+      }
+      
+        return await axios.get<any>('http://localhost:8080/'+(clientType).toLowerCase()+'/coupons'|| " ", {headers});
         }
-//         const purchase = async(coupon: CouponModel)=>{
-//           console.log(coupon);
-//           await axios.put<CouponModel>(globals.urls.customerPurchase, coupon)
-//         .then(res => { console.log(JSON.stringify(res.data)) })
-//         .catch(err => { console.log(err); });
-// }
+        const purchase = async(coupon: CouponModel)=>{
+          if(clientType ===undefined){
+            clientType="guest";
+          }
+          
+          console.log(coupon);
+          await axios.put<CouponModel>('http://localhost:8080/'+(clientType).toLowerCase()+'/coupons'|| " ", coupon, {headers})
+        .then(res => { console.log(JSON.stringify(res.data)) })
+        .catch(err => { console.log(err); });
+}
         
 
 
@@ -38,7 +56,7 @@ function CouponsList(): JSX.Element {
       // };
      
         useEffect(() => {
-
+          console.log("this is url: "+(urlmap.get(clientType )|| " "));
             const response = getCoupons();
             response
       .then((response) => {
@@ -73,7 +91,7 @@ function CouponsList(): JSX.Element {
                           <div id="price">
                             <h3>Price: {coup.price}</h3>
                             <button className="button-28"
-                            //  onClick={(e) => purchase(coup)}
+                             onClick={(e) => purchase(coup)}
                              >TAKE IT!</button>
                           </div>
                           

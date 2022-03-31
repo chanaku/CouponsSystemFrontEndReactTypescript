@@ -46,7 +46,8 @@ function Nav(): JSX.Element {
                     <div className='inner'>
                         <ul className="menus">
                             <li className="menu-items">
-                                <button className="button-28">Available Coupons</button>
+                                <button className="button-28">
+                                <CustomLink to="/coupons">Available Coupons</CustomLink></button>
                                 <ul className="sub-menus">
                                     <li className="menu-items">
                                             <button className="button-28 menu-button">

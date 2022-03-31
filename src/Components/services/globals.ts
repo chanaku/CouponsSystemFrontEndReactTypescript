@@ -13,7 +13,7 @@ class DevelopmentGlobals extends Globals{
         coupons: "http://localhost:8080/administrator/coupons/",
         images: "http://localhost:8080/api/cats/images/",
         companies:"http://localhost:8080/administrator/company/",
-        login:"http://localhost:8080/company/login",
+        login:"http://localhost:8080/administrator/login",
         customerPurchase:"http://localhost:8080/customer/"
     }
     public urlsCompany = {        

@@ -37,7 +37,7 @@ function CouponsList(): JSX.Element {
           }
           
           console.log(coupon);
-          await axios.put<CouponModel>('http://localhost:8080/'+(clientType).toLowerCase()+'/coupons'|| " ", coupon, {headers})
+          await axios.put<CouponModel>('http://localhost:8080/'+(clientType).toLowerCase()|| " ", coupon, {headers})
         .then(res => { console.log(JSON.stringify(res.data)) })
         .catch(err => { console.log(err); });
 }

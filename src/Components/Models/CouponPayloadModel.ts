@@ -2,7 +2,7 @@ export class CouponPayloadModel{
     public constructor(
         public id?: number,
         public category?: string,
-        public company?: number,
+        public company?: string,
         public title?: string,
         public description?: string,
         public startDate?: Date,

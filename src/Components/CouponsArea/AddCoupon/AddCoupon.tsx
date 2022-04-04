@@ -11,6 +11,8 @@ import globals from '../../services/globals';
 import authService from '../../services/AuthService';
 import { CompanyModel } from '../../Models/CompanyModel';
 import { CompanyService } from '../../services/CompanyService';
+import { ComModel } from '../../Models/ComModel';
+
 
 function AddCoupon(): JSX.Element {
     const [image, setImage] = useState('');
@@ -93,10 +95,10 @@ function AddCoupon(): JSX.Element {
         // urlmap.set('null' , globals.urlsMain.coupons)
         const companyId = CompanyService.getId();
         const headers: any = { authorization :  authService.getToken() };
-        
+        let co: string;
         const getCompany = async () => {
-            return await axios.get<CompanyModel[]>('http://localhost:8080/company',{headers})
-            .then(res => { console.log(JSON.stringify(res.data)) })
+            return await axios.get<ComModel[]>('http://localhost:8080/company',{headers})
+            .then(res => {JSON.stringify(res.data) })
             .catch(err => { console.log(err); })
         }
 
@@ -116,7 +118,7 @@ function AddCoupon(): JSX.Element {
     // }
     const addCoupon = async (coupon: CouponPayloadModel) => {
         const formData = new FormData();
-        
+        formData.append("company", JSON.stringify(com));
         formData.append("company", (com).toString());
         formData.append("category", coupon.category as string);
         formData.append("title", coupon.title as string);
@@ -148,13 +150,22 @@ function AddCoupon(): JSX.Element {
                             <label htmlFor="category">category</label>
                         </>
                 }
-
-                <input
-                    {...register("category")}
-                    id="category"
+                <div className="form-group">
+              
+                <select {...register("category")} className="custom-select" required>
+                        <option></option>
+                        <option value="FOOD">FOOD</option>
+                        <option value="ELECTRICITY">ELECTRICITY</option>
+                        <option value="RESTAURANT">RESTAURANT</option>
+                        <option value="VACATION">VACATION</option>
+                        id="category"
                     name="category"
                     type="string"
-                    placeholder="coupon category..." />
+                    placeholder="coupon category..."
+                    </select>
+                        
+                
+                    </div>
 
                 {
                     errors.title?.message ?

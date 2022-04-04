@@ -2,6 +2,7 @@ class AuthService{
     private isLoggenedIn =false;
     private token: string | undefined;
     private type? : string;
+    private userId? : number;
 
     public getToken() {
         return this.token;

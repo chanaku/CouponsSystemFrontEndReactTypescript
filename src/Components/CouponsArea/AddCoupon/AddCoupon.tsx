@@ -8,6 +8,9 @@ import { CouponPayloadModel } from '../../Models/CouponPayloadModel';
 import axios from 'axios';
 import { CouponModel } from '../../Models/CouponModel';
 import globals from '../../services/globals';
+import authService from '../../services/AuthService';
+import { CompanyModel } from '../../Models/CompanyModel';
+import { CompanyService } from '../../services/CompanyService';
 
 function AddCoupon(): JSX.Element {
     const [image, setImage] = useState('');
@@ -16,10 +19,12 @@ function AddCoupon(): JSX.Element {
         setImage(URL.createObjectURL(e.target.files[0]));
     }
 
+  
+
     const schema = yup.object().shape({
-        company:
+        category:
             yup.string()
-                .required("company is required"),
+                .required("category is required"),
         title:
             yup.string()
                 .required("title is required"),
@@ -28,7 +33,7 @@ function AddCoupon(): JSX.Element {
                 .required("description is required"),
         startDate:
             yup.date()
-                .min(new Date(), "can't start from future")
+                .max(new Date(), "can't start from future")
                 .typeError("you must specify a start date")
                 .required("start date is required")
                 .nullable().default(() => new Date()),
@@ -50,16 +55,29 @@ function AddCoupon(): JSX.Element {
                 .required("amount is required"),
         image:
             yup.mixed()
-                .test('required', "you need to provide a file", (value) => {
-                    return value && value.length;
-                })
-                .test('fileSize', "the file is too large", (value, context) => {
-                    return value && value[0].size <= 200000;
-                })
-                .test("type", "we only support png", function (value) {
-                    return value && value[0].type === "image/png";
-                })
-
+                // .test('required', "you need to provide a file", (value) => {
+                //     return value && value.length;
+                // })
+                .nullable()
+                .notRequired()
+                // .test('fileSize', "the file is too large", (value, context) => {
+                //     return value && value[0].size <= 200000;
+                // })
+                // .test("type", "we only support png", function (value) {
+                //     return value && value[0].type === "image/png";
+                // })
+                // .test(
+                //     "fileSize",
+                //     "File size too large, max file size is 1 Mb",
+                //     (file) => {
+                //       if (file) {
+                //         return file.size <= 1100000;
+                //       } else {
+                //         return true;
+                //       }
+                //     }
+                //   )
+                
 
 
 
@@ -67,10 +85,40 @@ function AddCoupon(): JSX.Element {
 
     const { register, handleSubmit, formState: { errors, isDirty, isValid } } =
         useForm<CouponPayloadModel>({ mode: "all", resolver: yupResolver(schema) });
+        let clientType : any= authService.getType();
+        let urlmap = new Map<string, string>();
+        urlmap.set('ADMINISTRATOR', globals.urlsAdmin.coupons)
+        urlmap.set('COMPANY', globals.urlsCompany.coupons)
+        urlmap.set('CUSTOMER', globals.urlsCustomer.coupons)
+        // urlmap.set('null' , globals.urlsMain.coupons)
+        const companyId = CompanyService.getId();
+        const headers: any = { authorization :  authService.getToken() };
+        
+        const getCompany = async () => {
+            return await axios.get<CompanyModel[]>('http://localhost:8080/company',{headers})
+            .then(res => { console.log(JSON.stringify(res.data)) })
+            .catch(err => { console.log(err); })
+        }
 
+        const com = getCompany();
+        // const company = getCompany();
+    //     const purchase = async(coupon: CouponModel)=>{
+    //         if(clientType ===undefined){
+    //           clientType="guest";
+    //           alert("only company can add coupons.");
+    //         }
+    //         clientType.toLowerCsae();
+    //         console.log(coupon);
+    //         await axios.put<CouponModel>('http://localhost:8080/'+(clientType).toLowerCase()+'/coupons'|| " ", coupon, {headers})
+    //       .then(res => { console.log(JSON.stringify(res.data)) })
+    //       .catch(err => { console.log(err); });
+    
+    // }
     const addCoupon = async (coupon: CouponPayloadModel) => {
         const formData = new FormData();
-        formData.append("company", coupon.company as string);
+        
+        formData.append("company", (com).toString());
+        formData.append("category", coupon.category as string);
         formData.append("title", coupon.title as string);
         formData.append("description", coupon.description as string);
         const exp = (coupon.startDate?.toISOString().split('T')[0]);
@@ -79,11 +127,11 @@ function AddCoupon(): JSX.Element {
         formData.append("endDate", exp2 as string);
         formData.append("amount", (coupon.amount as number).toString());
         formData.append("price", (coupon.price as number).toString());
-        formData.append("image", coupon.image?.item(0) as any);
+        formData.append("image", coupon.image?.item(0) as unknown as string);
     
     //sending post request to spring boot
     console.log(FormData);
-    await axios.post<CouponModel>(globals.urlsMain.coupons, FormData)
+    await axios.post<CouponModel>('http://localhost:8080/'+(clientType).toLowerCase()+'/coupons'|| " ", coupon , {headers})
         .then(res => { alert(JSON.stringify(res.data)) })
         .catch(err => { console.log(err); });
 }
@@ -92,21 +140,21 @@ function AddCoupon(): JSX.Element {
         <div className="AddCoupon">
             <form onSubmit={handleSubmit(addCoupon)}>
                 {
-                    errors.company?.message ?
+                    errors.category?.message ?
                         <>
-                            <span>{errors?.company?.message}</span>
+                            <span>{errors?.category?.message}</span>
                         </> :
                         <>
-                            <label htmlFor="company">company</label>
+                            <label htmlFor="category">category</label>
                         </>
                 }
 
                 <input
-                    {...register("company")}
-                    id="company"
-                    name="company"
-                    type="text"
-                    placeholder="coupon company..." />
+                    {...register("category")}
+                    id="category"
+                    name="category"
+                    type="string"
+                    placeholder="coupon category..." />
 
                 {
                     errors.title?.message ?
@@ -211,7 +259,7 @@ function AddCoupon(): JSX.Element {
                         <label htmlFor="image">image</label>
                     </>
                 }
-                <input
+                {/* <input
                     {...register("image")}
                     id="image"
                     name="image"
@@ -219,9 +267,11 @@ function AddCoupon(): JSX.Element {
                     placeholder="coupon image.."/>
                 <div className="wrap-box">
                     {image?<img src={image} alt=""></img>: 'no image yet!'}
-                </div>
+                </div> */}
 
-                <button disabled={!isValid}>ADD</button>
+                <button 
+                // disabled={!isValid} 
+                >ADD</button>
 
             </form>
 

@@ -1,7 +1,8 @@
 export class CouponPayloadModel{
     public constructor(
-        public id?: string,
-        public company?: string,
+        public id?: number,
+        public category?: string,
+        public company?: number,
         public title?: string,
         public description?: string,
         public startDate?: Date,

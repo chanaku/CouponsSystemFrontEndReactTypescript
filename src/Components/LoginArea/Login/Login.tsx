@@ -9,6 +9,8 @@ import globals from '../../services/globals';
 import AuthService from '../../services/AuthService';
 import authService from '../../services/AuthService';
 import { string } from 'yup';
+import { CompanyModel } from '../../Models/CompanyModel';
+import { CompanyService } from '../../services/CompanyService';
 
 
 function Login(): JSX.Element {
@@ -43,6 +45,14 @@ function Login(): JSX.Element {
         await axios.post<LoginModel>("http://localhost:8080/guest/login" , login)
             .then(res => (active(res.data as string, login.clientType as string)))
             .catch((err: any) => { console.log(err + " "+ login); })
+            
+            const fd = new FormData();
+            const headers = { authorization :  authService.getToken() };
+            fd.append("email", login.email as string);
+            fd.append("password", login.password as string);
+            return await axios.post<CompanyModel[]>('http://localhost:8080/company/company',login , {headers})
+            .then(response => loadCompany(response.data as unknown as string))
+            .catch((err: any) => { console.log(err + " "); })
     }
    
     function active(data: string, clientType: string): void {
@@ -51,8 +61,15 @@ function Login(): JSX.Element {
         authService.setType(clientType);
         console.log(authService.getToken());
         console.log(authService.getIsLoggenedIn());
-    }
+       
 
+
+    }
+    function loadCompany(data: string): void{
+        CompanyService.setId(data)
+        console.log("this is data "+data);
+        console.log("this is company id "+ CompanyService.getId());
+    }
 
     return (
 

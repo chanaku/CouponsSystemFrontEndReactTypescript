@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import globals from "../../services/globals";
 import axios from "axios";
 import notify from "../../services/Notification2";
+import authService from "../../services/AuthService";
 
 
 function AddCompany(): JSX.Element {
@@ -32,8 +33,8 @@ const addCompany = async (company: CompanyModel) => {
     formData.append("email", company.email as string);
     formData.append("password", company.password as string);
     console.log(FormData);
-
-    await axios.post<CompanyModel>(globals.urlsAdmin.companies, company)
+    const headers: any = { authorization :  authService.getToken() };
+    await axios.post<CompanyModel>(globals.urlsAdmin.companies, company, {headers})
         .then(res => { console.log(JSON.stringify(res.data)) })
         .catch(err => { console.log(err); });
 }

@@ -1,26 +1,28 @@
 class AuthService{
-    private isLoggenedIn =false;
+    private isLoggenedIn :boolean = false;
     private token: string | undefined;
     private type? : string;
     private userId? : number;
 
     public getToken() {
-        return this.token;
+        return localStorage.getItem('token');
     }
     public getIsLoggenedIn() {
         return this.isLoggenedIn;
     }
     public setToken(token: string) {
-        this.token = token;
+        localStorage.setItem('token',token);
     }
-    public setIsLoggenedIn(isLoggenedIn: boolean) {
-        this.isLoggenedIn = isLoggenedIn;
+    public setIsLoggenedIn(isLoggenedIn1: boolean) {
+      this.isLoggenedIn = isLoggenedIn1;
+
     }
     public getType() {
-        return this.type;
+        return localStorage.getItem('type');
     }
     public setType(type : string) {
-         this.type = type;
+        localStorage.setItem('type',type);
+
     }
 }
 const authService = new AuthService();

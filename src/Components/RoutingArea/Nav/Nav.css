@@ -2,6 +2,7 @@
 	color: white
 }
 
+<<<<<<< Updated upstream
 .hide {
 	display: none;
 }
@@ -25,4 +26,13 @@ ul {
 .menus > .menu-items:hover .sub-menus {
 	display: block;
 	color: white;
+	
+}.a#basic-nav-dropdown {
+		color: white;
+}
+=======
+
+a#basic-nav-dropdown {
+    color: white;
+>>>>>>> Stashed changes
 }

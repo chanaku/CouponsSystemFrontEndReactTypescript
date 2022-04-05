@@ -1,7 +1,7 @@
 class AuthService{
     private isLoggenedIn :boolean = false;
     private token: string | undefined;
-    private type? : string;
+    private type : string | undefined;
     private userId? : number;
 
     public getToken() {
@@ -18,6 +18,10 @@ class AuthService{
 
     }
     public getType() {
+        if (this.type===""){
+            console.log("from type " +this.type)
+            localStorage.setItem("type","guest");
+          }
         return localStorage.getItem('type');
     }
     public setType(type : string) {

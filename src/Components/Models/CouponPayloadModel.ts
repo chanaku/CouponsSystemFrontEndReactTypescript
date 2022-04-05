@@ -1,8 +1,10 @@
+import { ComModel } from "./ComModel";
+
 export class CouponPayloadModel{
     public constructor(
         public id?: number,
         public category?: string,
-        public company?: string,
+        public company?: ComModel,
         public title?: string,
         public description?: string,
         public startDate?: Date,

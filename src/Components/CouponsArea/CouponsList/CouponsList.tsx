@@ -10,31 +10,28 @@ import "./CouponsList.css";
 import Card from '../Card/Card';
 import globals from '../../services/globals';
 import authService from '../../services/AuthService';
+import AuthService from '../../services/AuthService';
 
 function CouponsList(): JSX.Element {
     const init: CouponModel[] = [];
     const[coupons, setCoupons] =useState<any>(init);
     
     let clientType : any= authService.getType();
+    
     let urlmap = new Map<string, string>();
     urlmap.set('ADMINISTRATOR', globals.urlsAdmin.coupons)
     urlmap.set('COMPANY', globals.urlsCompany.coupons)
     urlmap.set('CUSTOMER', globals.urlsCustomer.coupons)
-    // urlmap.set('null' , globals.urlsMain.coupons)
+     urlmap.set('null' , globals.urlsMain.coupons)
     
     const headers: any = { authorization :  authService.getToken() };
     console.log("this is url: "+('http://localhost:8080/'+(clientType).toLowerCase()+'/coupons'|| " "));
     const  getCoupons = async()=>{
-      if(clientType ===undefined){
-        clientType="guest";
-      }
-      
+        console.log(clientType);
         return await axios.get<any>('http://localhost:8080/'+(clientType).toLowerCase()+'/coupons'|| " ", {headers});
         }
         const purchase = async(coupon: CouponModel)=>{
-          if(clientType ===undefined){
-            clientType="guest";
-          }
+          
           
           console.log(coupon);
           await axios.put<CouponModel>('http://localhost:8080/'+(clientType).toLowerCase()|| " ", coupon, {headers})

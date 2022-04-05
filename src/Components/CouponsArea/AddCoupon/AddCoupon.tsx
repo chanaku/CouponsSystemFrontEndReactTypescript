@@ -96,13 +96,7 @@ function AddCoupon(): JSX.Element {
         const companyId = CompanyService.getId();
         const headers: any = { authorization :  authService.getToken() };
         let co: string;
-        const getCompany = async () => {
-            return await axios.get<ComModel[]>('http://localhost:8080/company',{headers})
-            .then(res => {JSON.stringify(res.data) })
-            .catch(err => { console.log(err); })
-        }
 
-        const com = getCompany();
         // const company = getCompany();
     //     const purchase = async(coupon: CouponModel)=>{
     //         if(clientType ===undefined){
@@ -117,26 +111,32 @@ function AddCoupon(): JSX.Element {
     
     // }
     const addCoupon = async (coupon: CouponPayloadModel) => {
-        const formData = new FormData();
-        formData.append("company", JSON.stringify(com));
-        formData.append("company", (com).toString());
-        formData.append("category", coupon.category as string);
-        formData.append("title", coupon.title as string);
-        formData.append("description", coupon.description as string);
-        const exp = (coupon.startDate?.toISOString().split('T')[0]);
-        formData.append("startDate", exp as string);
-        const exp2 = (coupon.startDate?.toISOString().split('T')[0]);
-        formData.append("endDate", exp2 as string);
-        formData.append("amount", (coupon.amount as number).toString());
-        formData.append("price", (coupon.price as number).toString());
-        formData.append("image", coupon.image?.item(0) as unknown as string);
+       axios.get<ComModel>('http://localhost:8080/company',{headers})
+            .then(res => {
+                const com = res.data;
+                coupon.company = com;
+
+                const formData = new FormData();
+                formData.append("company", JSON.stringify(com));
+                formData.append("company", (com).toString());
+                formData.append("category", coupon.category as string);
+                formData.append("title", coupon.title as string);
+                formData.append("description", coupon.description as string);
+                const exp = (coupon.startDate?.toISOString().split('T')[0]);
+                formData.append("startDate", exp as string);
+                const exp2 = (coupon.startDate?.toISOString().split('T')[0]);
+                formData.append("endDate", exp2 as string);
+                formData.append("amount", (coupon.amount as number).toString());
+                formData.append("price", (coupon.price as number).toString());
+                formData.append("image", coupon.image?.item(0) as unknown as string);
     
-    //sending post request to spring boot
-    console.log(FormData);
-    await axios.post<CouponModel>('http://localhost:8080/'+(clientType).toLowerCase()+'/coupons'|| " ", coupon , {headers})
-        .then(res => { alert(JSON.stringify(res.data)) })
-        .catch(err => { console.log(err); });
-}
+                //sending post request to spring boot
+                axios.post<CouponModel>('http://localhost:8080/'+(clientType).toLowerCase()+'/coupons'|| " ", coupon , {headers})
+                    .then(res => { alert(JSON.stringify(res.data)) })
+                    .catch(err => { console.log(err); });
+                })
+                .catch(err => { console.log(err); })
+            }
 
     return (
         <div className="AddCoupon">

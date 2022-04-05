@@ -17,6 +17,13 @@ function Nav(): JSX.Element {
     const isVisible = (feature: string = '') => {
         switch (clientType) {
             case 'ADMINISTRATOR':
+                 
+                if (feature === 'Add Coupon') {
+                    return false;
+                }
+                 if (feature === 'My Coupons'){
+                    return false;
+                }
                 return true;
             case 'COMPANY':
                 if (feature === 'Add Coupon') {

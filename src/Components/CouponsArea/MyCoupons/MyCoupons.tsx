@@ -55,32 +55,22 @@ function MyCoupons(): JSX.Element {
     }, []);
       
     return (
-      <div className="CouponsList">
+      <div className="CouponsList table-coupon">
         
   
-        {coupons?.length > 0 && <h1>coupons</h1>}
+        {coupons?.length > 0 && <h1>My Coupons</h1>}
+        <table className="table">
+          <tbody>
         {/* {coupons?.length > 0 &&  */}
              { coupons.map((coup:any) =>{
                 return[
-                  <>  <div key={coup.id}>
-                          <div id="card">
-  
-                          <img src="https://mumlatzim.me/wp-content/uploads/2019/11/printable-coupons-1_large.png" alt="coupon" />
-                            <div id="headline1">
-                                <h1>{coup.title}</h1> 
-                            </div>
-                            <hr/>
-                            <div id="headline1">
-                              <p>{coup.description}</p>
-                            </div>
-                            <hr/>
-                            <div id="price">
-                              <h3>Price: {coup.price}</h3>
-                              
-                            </div>
-                            
-                          </div>
-                          </div>
+                  <>  
+                      <tr key={coup.id}>
+                        <td scope="row"><img className="img-coupon" src="https://mumlatzim.me/wp-content/uploads/2019/11/printable-coupons-1_large.png" alt="coupon" /></td>
+                        <td>{coup.title}</td>
+                        <td>{coup.description}</td>
+                        <td>Price: {coup.price}</td>
+                      </tr>
                   </>
                 ]
               })
@@ -89,7 +79,8 @@ function MyCoupons(): JSX.Element {
         }
   
         {coupons?.length === 0 && <EmptyView msg="No Coupons for you" />}
-  
+        </tbody>
+          </table>
       </div >
     );
   }

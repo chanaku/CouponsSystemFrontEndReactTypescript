@@ -10,6 +10,7 @@ import globals from '../../services/globals';
 import { List } from 'material-ui';
 import UpdateCompany from '../UpdateCompany/UpdateCompany';
 import { CompanyService } from '../../services/CompanyService';
+import authService from '../../services/AuthService';
 
 
 function CompanyList(): JSX.Element {
@@ -21,12 +22,16 @@ function CompanyList(): JSX.Element {
         console.log(CompanyService.getId());
         return id;
     }
-
+    let clientType : any= authService.getType();
+    const headers: any = { authorization :  authService.getToken() };
     const getCompanies = async () => {
-        return await axios.get<CompanyModel[]>(globals.urlsMain.companies)
+        return await axios.get<CompanyModel[]>("http://localhost:8080/"+clientType.toLowerCase()+"/company", {headers})
     }
-    const deleteCompany = async (id: any, e: any) => {
-        await axios.delete(`http://localhost:8080/admin/company/${id}`)
+    const deleteCompany = async (id: number, e: any) => {
+        // console.log("this is from delete " + id)
+        // const u = "http://localhost:8080/"+clientType.toLowerCase()+"/company/${id}";
+        // console.log(u);
+        await axios.delete(`http://localhost:8080/`+clientType.toLowerCase()+`/company/${id}`,{headers})
             .then(res => {
                 getCompanies();
                 console.log(res.data);
@@ -79,7 +84,7 @@ function CompanyList(): JSX.Element {
                                     <td>{company.name}</td>
                                     <td>{company.email}</td>
                                     <td>{company.password}</td>
-                                    <td><button className="button-26" onClick={(e) => deleteCompany(company.id, e)}>Delete Company</button>&nbsp;
+                                    <td><button className="button-26" onClick={(e) => deleteCompany(company.id || 0, e)}>Delete Company</button>&nbsp;
                                         <Link to="/companies/update">
                                             <button className="button-26" onClick={onChange(company.id)}>Update Company</button>
                                         </Link>

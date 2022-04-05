@@ -45,14 +45,17 @@ function Login(): JSX.Element {
         await axios.post<LoginModel>("http://localhost:8080/guest/login" , login)
             .then(res => (active(res.data as string, login.clientType as string)))
             .catch((err: any) => { console.log(err + " "+ login); })
+            // if(login.clientType==="company"){
+            //     console.log("this is from if statement");
+            //     const fd = new FormData();
+            // const headers = { authorization :  authService.getToken() };
+            // fd.append("email", login.email as string);
+            // fd.append("password", login.password as string);
+            // return await axios.post<CompanyModel[]>('http://localhost:8080/company/company',login , {headers})
+            // .then(response => loadCompany(response.data as unknown as string))
+            // .catch((err: any) => { console.log(err + " "); })
+            // }
             
-            const fd = new FormData();
-            const headers = { authorization :  authService.getToken() };
-            fd.append("email", login.email as string);
-            fd.append("password", login.password as string);
-            return await axios.post<CompanyModel[]>('http://localhost:8080/company/company',login , {headers})
-            .then(response => loadCompany(response.data as unknown as string))
-            .catch((err: any) => { console.log(err + " "); })
     }
    
     function active(data: string, clientType: string): void {

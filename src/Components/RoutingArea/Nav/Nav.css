@@ -27,12 +27,9 @@ ul {
 	display: block;
 	color: white;
 	
-}.a#basic-nav-dropdown {
-		color: white;
 }
-=======
 
 a#basic-nav-dropdown {
     color: white;
->>>>>>> Stashed changes
+
 }

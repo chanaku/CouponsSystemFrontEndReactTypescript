@@ -25,13 +25,11 @@ function MyCoupons(): JSX.Element {
   
       
       const  getCoupons = async()=>{
-<<<<<<< Updated upstream
+
        
           return await axios.get<CouponModel[]>('http://localhost:8080/'+(clientType).toLowerCase()+'/mycoupons' ,{headers});
-=======
-        const headers = { authorization: authService.getToken()  };
-          return await axios.get<CouponModel[]>(globals.urlsCustomer.coupons, {headers});
->>>>>>> Stashed changes
+        
+        
           
           }
   

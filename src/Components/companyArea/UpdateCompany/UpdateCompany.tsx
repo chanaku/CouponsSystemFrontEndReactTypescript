@@ -31,7 +31,8 @@ const UpdateCompany = async (company: CompanyModel) => {
     // formData.append("password", company.password as string);
     // console.log(FormData);
         console.log(company);
-        company.id = CompanyService.getId() || " " ;
+        const id = CompanyService.getId() || 0 ;
+        company.id = id as number
         
         console.log(company);
     await axios.put<CompanyModel>(globals.urlsAdmin.companies, company)

@@ -1,3 +1,11 @@
 .MyCoupons {
 	
 }
+
+.table-coupon td {
+    width: 25%;
+}
+
+.img-coupon {
+    width: 35%;
+}

@@ -6,7 +6,7 @@ class DevelopmentGlobals extends Globals{
         coupons: "http://localhost:8080/{administrator}/coupons/",
         images: "http://localhost:8080/api/cats/images/",
         companies:"http://localhost:8080/{administrator}/company/",
-        login:"http://localhost:8080/{company}/login",
+        login:"http://localhost:8080/guest/login",
         customerPurchase:"http://localhost:8080/customer/"
     }
     public urlsAdmin = {        
@@ -37,7 +37,7 @@ class ProductionGlobals extends Globals{
         coupons: "http://localhost:8080/{administrator}/coupons/",
         images: "http://localhost:8080/api/cats/images/",
         companies:"http://localhost:8080/{administrator}/company/",
-        login:"http://localhost:8080/{company}/login",
+        login:"http://localhost:8080/guest/login",
         customerPurchase:"http://localhost:8080/customer/"
     }
     public urlsAdmin = {        

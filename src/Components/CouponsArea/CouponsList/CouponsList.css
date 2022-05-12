@@ -15,8 +15,9 @@
     display: flex;
     justify-content:flex-start;
     align-items:center;
-    background-color:#ddd;
+    background-color:rgb(165, 159, 159);
     overflow: auto;
+    text-align: center;
 }
 
 .CouponsList tr:ntn-child(even){
@@ -24,7 +25,7 @@
 
 }
 .CouponsList tr:ntn-child(odd){
-    background-color:lightcoral;
+    background-color:rgb(79, 165, 223);
     
 }
 .CouponsList tr:nth-child(even){background-color: #f2f2f2;}
@@ -34,5 +35,16 @@
 .mytable{
     height: 120%;
     overflow: auto;
+    }
+    .table-coupon td {
+        width: 25%;
+    }
+    
+    .img-coupon {
+        width: 35%;
+    }
+    .p{
+        width: 25%;
+        text-align: center;
     }
     

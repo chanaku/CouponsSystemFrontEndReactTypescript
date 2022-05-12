@@ -36,11 +36,6 @@ function MyCoupons(): JSX.Element {
           const body = document.body;
        
           useEffect(() => {
-              // switch (category) {
-              //   case "FOOD":
-              //     body.style.background= '#fff';
-              //     break;
-              // }
               const response = getCoupons();
               response
         .then((response) => {

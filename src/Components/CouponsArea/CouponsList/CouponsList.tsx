@@ -27,6 +27,7 @@ function CouponsList(): JSX.Element {
     const headers: any = { authorization :  authService.getToken() };
     console.log("this is url: "+('http://localhost:8080/'+(clientType).toLowerCase()+'/coupons'|| " "));
     const  getCoupons = async()=>{
+      
         console.log(clientType);
         return await axios.get<any>('http://localhost:8080/'+(clientType).toLowerCase()+'/coupons'|| " ", {headers});
         }
@@ -37,20 +38,7 @@ function CouponsList(): JSX.Element {
           await axios.put<CouponModel>('http://localhost:8080/'+(clientType).toLowerCase()|| " ", coupon, {headers})
         .then(res => { console.log(JSON.stringify(res.data)) })
         .catch(err => { console.log(err); });
-}
-        
-
-
-      //   const deleteCoupon = async (id: any, e: any) => {
-      //     await axios.delete(`http://localhost:8080/admin/coupon/${id}`)
-      //         .then(res => {
-      //             getCoupons();
-      //             console.log(res.data);
-      //         })
-      //         .catch((err) => {
-      //             notify.error(err)
-      //         });
-      // };
+        }
      
         useEffect(() => {
           console.log("this is url: "+(urlmap.get(clientType )|| " "));
@@ -68,14 +56,14 @@ function CouponsList(): JSX.Element {
   }, []);
     
   return (
-    <div className="CouponsList">
+    <div className="CouponsList table-coupon">
 
       {coupons?.length > 0 && <h1>coupons</h1>}
       {/* {coupons?.length > 0 &&  */}
            { coupons.map((coup:any) =>{
               return[
                 <>  <div key={coup.id}>
-                        <div id="card">
+                        <div id="img-coupon">
                         <img src="https://mumlatzim.me/wp-content/uploads/2019/11/printable-coupons-1_large.png" alt="coupon" />
                           <div id="headline1">
                               <h1>{coup.title}</h1> 
@@ -87,7 +75,7 @@ function CouponsList(): JSX.Element {
                           <hr/>
                           <div id="price">
                             <h3>Price: {coup.price}</h3>
-                            <button className="button-28"
+                            <button className="button-26"
                              onClick={(e) => purchase(coup)}
                              >TAKE IT!</button>
                           </div>
